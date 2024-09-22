@@ -2,9 +2,9 @@ import { MdOutlineCameraAlt } from "react-icons/md";
 
 const ProfilePicButton = () => {
   return (
-    <div className="w-36 h-14 relative">
+    <div className="w-40 h-14 relative">
 
-      <div className="h-12 w-12 rounded-full bg-blue-600 border-2 border-white">
+      <div className="h-14 w-14 rounded-full bg-blue-600 border-2 border-white">
         <img src="" alt="" />
       </div>
 

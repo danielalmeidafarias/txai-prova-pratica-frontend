@@ -12,7 +12,7 @@ const SignUp = () => {
       <div className="flex flex-col items-start gap-5">
         <img className="h-12" src={logo} alt="" />
         <div>
-          <h2 className="font-bold text-3xl">Faça seu Cadastro</h2>
+          <h2 className="font-bold text-3xl text-zinc-800">Faça seu Cadastro</h2>
           <p className="text-sm text-gray-500" >*Campos obrigatórios</p>
         </div>
         <ProfilePicButton />

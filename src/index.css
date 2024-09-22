@@ -53,10 +53,8 @@ table {
 	border-spacing: 0;
 }
 
-
-* {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
+body {
+  @apply font-sans;
 }
 
 body {
