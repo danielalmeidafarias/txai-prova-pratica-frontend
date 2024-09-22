@@ -8,9 +8,9 @@ export interface InputProps {
 const Input = ({ type, placeholder, label, id }: InputProps) => {
   return (  
     <div className="flex flex-col justify-around w-80 h-16">
-      <label htmlFor={id} className="font-thin text-base drop-shadow-lg">{label}</label>
+      <label htmlFor={id} className="text-base text-zinc-800">{label}</label>
       <input 
-      className="outline-none border-[1px] border-gray-300 placeholder:text-base h-3/5 rounded-sm pl-2 placeholder:-translate-y-[1px]"
+      className="outline-none border-[1px] border-gray-300 hover:border-gray-800 ease-in-out duration-500 placeholder:text-base h-3/5 rounded-sm pl-2 placeholder:-translate-y-[1px]"
       id={id} type={type} placeholder={placeholder}/>
     </div>
   );
