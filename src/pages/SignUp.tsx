@@ -23,12 +23,12 @@ const SignUp = () => {
         <Input id="email" label="E-mail" type="email" placeholder="Insira seu melhor e-mail"/>
         <Input id="nickname" label="*Nome de usuário" type="" placeholder="Insira seu nome de usuário"/>
         <Input id="password" label="*Senha" type="" placeholder="Insira uma senha forte"/>
-        <Input id="" label="" type="" placeholder="Confirmar senha"/>
+        <Input id="" label="*Confirmar Senha" type="" placeholder="Confirmar senha"/>
       </div>
       <div className="flex justify-end h-full w-full gap-6">
         <div className="h-10 flex grid-2 items-center">
           <RiArrowGoBackFill className="text-gray-500"/>
-          <p className="text-gray-500">Voltar ao login</p>
+          <p className="text-gray-500 hover:text-gray-700 duration-100 cursor-pointer">Voltar ao login</p>
         </div>
         <Button content="Concluir Cadastro"/>
       </div>

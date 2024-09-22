@@ -8,11 +8,11 @@ const ProfilePicButton = () => {
         <img src="" alt="" />
       </div>
 
-      <div className="flex h-6 gap-1 items-center absolute right-0 bottom-0 index-1">
+      <div className="flex h-6 gap-1 items-center absolute right-0 bottom-0 index-1 cursor-pointer">
         <div className="w-6 h-6 rounded-full shadow-sm shadow-gray-600 flex items-center justify-center bg-white">
           <MdOutlineCameraAlt className="bg-white text-emerald-700"/>
         </div>
-        <p className="text-emerald-700 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+        <p className="text-emerald-700 drop-shadow-[0_0.8px_1px_rgba(0,0,0,0.3)]">
           Carregar foto
         </p>
       </div>
