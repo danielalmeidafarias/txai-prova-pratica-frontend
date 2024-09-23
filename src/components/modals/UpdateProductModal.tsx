@@ -10,15 +10,20 @@ import { z } from 'zod'
 import Swal from 'sweetalert2';
 
 const productSchema = z.object({
-  quantity: z.number().min(1, "Quantity is required"),
-  name: z.string().min(1, "Name is required"),
-  description: z.string().min(1, "Description is required"),
-  price: z.string().regex(/^-?\d+(\.\d+)?$/, "Price must be a valid number"),
+  quantity: z.optional(z.number()),
+  name: z.optional(z.string()),
+  description: z.optional(z.string()),
+  price: z.optional(z.string().regex(/^-?\d+(\.\d+)?$/, "Price must be a valid number")),
 });
 
-export interface CreateProductModalProps {
+export interface UpdateProductModalProps {
   open: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  id: string;
+  name: string;
+  description: string;
+  quantity: number;
+  price: string;
 }
 
 const Toast = Swal.mixin({
@@ -33,11 +38,11 @@ const Toast = Swal.mixin({
   }
 });
 
-export default function CreateProductModal({ open, setIsOpen }: CreateProductModalProps) {
-  const [quantity, setQuantity] = useState(0)
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState('')
-  const [description, setDescription] = useState('')
+export default function UpdateProductModal({ open, setIsOpen, id, description, name, price, quantity }: UpdateProductModalProps) {
+  const [newQuantity, setQuantity] = useState(quantity)
+  const [newName, setName] = useState(name)
+  const [newPrice, setPrice] = useState(price)
+  const [newDescription, setDescription] = useState(description)
 
   const handleCreateProduct = async () => {
     const result = productSchema.safeParse({ quantity, name, price, description });
@@ -53,11 +58,11 @@ export default function CreateProductModal({ open, setIsOpen }: CreateProductMod
         console.log(errorMessages);
       } else {
         try {
-          await axios.post('http://localhost:3000/products', {
-            name,
-            price: Number(price),
-            description,
-            quantity
+          await axios.patch(`http://localhost:3000/products/${id}`, {
+            name: newName == name ? undefined : newName,
+            price: Number(newPrice) == Number(price) ? undefined : Number(newPrice),
+            description: newDescription == description ? undefined : newDescription,  
+            quantity: newQuantity == quantity ? undefined : newQuantity
           }, {
             withCredentials: true
           }).then(() => {
@@ -87,13 +92,13 @@ export default function CreateProductModal({ open, setIsOpen }: CreateProductMod
     >
       <div className="w-[512px] h-[402px] bg-neutral-200 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md border-2 border-gray-500 pl-10 pr-10 pb-8 pt-8 flex flex-col justify-between">
         <div className='border-b border-gray-400 flex justify-between items-center'>
-          <h2 className='text-xl font-semibold'>Cadastrar novo produto</h2>
+          <h2 className='text-xl font-semibold'>Gerenciar Produto</h2>
           <IoMdClose size={25} className='text-gray-400 cursor-pointer' onClick={() => setIsOpen(false)}/>
         </div>
         <div className='flex justify-between items-center'>
           <Input onChange={(e) => {
             setName(e.target.value)
-          }} id='name' label='Nome do produto' type='text' placeholder='Nome do produto'/>
+          }} id='name' value={newName} label='Nome do produto' type='text' placeholder='Nome do produto'/>
           <div className='h-full flex flex-col justify-around'>
             <p>Quantidade</p>
             <div className='flex w-20 h-8 border-2 rounded-sm border-teal-600 justify-around items-center'>
@@ -105,7 +110,7 @@ export default function CreateProductModal({ open, setIsOpen }: CreateProductMod
                   return 0
                 } else return prev - 1
               })}/>
-              <p>{quantity}</p>
+              <p>{newQuantity}</p>
               <FiPlus 
               className="text-teal-600 cursor-pointer"
               size={20}
@@ -114,11 +119,13 @@ export default function CreateProductModal({ open, setIsOpen }: CreateProductMod
           </div>
         </div>
         <Input 
+        value={newDescription}
         onChange={(e) => {
           setDescription(e.target.value)
         }}
         id='description' placeholder='Descrição do produto' label='Descrição' type='text'/>
         <Input 
+        value={newPrice}
         onChange={(e) => {
           setPrice(e.target.value)
         }}
@@ -127,7 +134,7 @@ export default function CreateProductModal({ open, setIsOpen }: CreateProductMod
           <RedButton content='Cancelar' onClick={() => setIsOpen(false)}/> 
           <Button
           onClick={async () => await handleCreateProduct()}
-          content="Cadastrar"/>
+          content="Atualizar"/>
         </div>
       </div>
     </Modal>

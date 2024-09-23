@@ -3,12 +3,13 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from 'react-router-dom';
 
 
 const options = [
-  'Home',
-  'Gestão',
-  'Controle de Estoque'
+  {option: 'Home', url: '/home'},
+  {option: 'Gestão', url: '/users'},
+  {option: 'Controle de Estoque', url: '/products'}
 ];
 
 const ITEM_HEIGHT = 48;
@@ -53,8 +54,8 @@ export default function LongMenu() {
         }}
       >
         {options.map((option) => (
-          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-            {option}
+          <MenuItem key={option.option} selected={option.option === 'Pyxis'} onClick={handleClose}>
+            <Link to={option.url}>{option.option}</Link>
           </MenuItem>
         ))}
       </Menu>

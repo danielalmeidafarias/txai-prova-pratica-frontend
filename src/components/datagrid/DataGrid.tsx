@@ -1,33 +1,54 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid as MuiDataGrid, GridColDef } from '@mui/x-data-grid';
-import { RiPencilFill } from "react-icons/ri";
+import axios, { AxiosError } from 'axios';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import EditComponent from './EditComponent';
+import DeleteComponent from './DeleteComponent';
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+export interface IProduct {
+  id: string;
+  name: string;
+  description: string;
+  image_url: string | null;
+  quantity: number;
+  price: number;
+  owner_id: string;
+  created_at: Date;
+  updated_at: Date;
+}
 
-const DataGrid = () => {
-  const handleEdit = (id) => {
-    console.log("Edit row with ID:", id);
-  };
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+
+interface Props {
+  user_id?: string;
+}
+
+const DataGrid = ({ user_id }: Props) => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const navigate = useNavigate();
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', flex: 0.1, filterable: true },
+    { field: 'id', headerName: 'ID', flex: 0.2, sortable: false, disableColumnMenu: true, type: 'string' },
     {
       field: 'created_at',
       headerName: 'Data de cadastro',
-      editable: false,
+      editable: true,
       flex: 0.15,
       filterable: true,
+      type: 'date',
+      valueGetter: (params) => new Date(params),
     },
     {
       field: 'name',
@@ -44,23 +65,17 @@ const DataGrid = () => {
       filterable: true,
     },
     {
-      field: 'unit_price',
+      field: 'price',
       headerName: 'Valor unitário',
       editable: true,
       flex: 0.1,
       filterable: true,
+      type: 'number',
     },
     {
       field: 'quantity',
       headerName: 'Quantidade',
       sortable: false,
-      flex: 0.1,
-      filterable: true,
-    },
-    {
-      field: 'total_price',
-      headerName: 'Valor total',
-      editable: true,
       flex: 0.1,
       filterable: true,
     },
@@ -73,20 +88,60 @@ const DataGrid = () => {
       disableColumnMenu: true,
       renderCell: (params) => (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          <RiPencilFill 
-            style={{ cursor: 'pointer' }} 
-            onClick={() => handleEdit(params.row.id)} 
+          <EditComponent 
+            description={params.row.description}
+            name={params.row.name}
+            price={String(params.row.price)}
+            quantity={params.row.quantity}
+            id={String(params.row.id)}
           />
+        </div>
+      ),
+    },
+    {
+      field: 'delete',
+      headerName: 'Delete',
+      filterable: false,
+      sortable: false,
+      renderCell: (params) => (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          <DeleteComponent id={String(params.row.id)}/>
         </div>
       ),
     },
   ];
 
+  const getProducts = async () => {
+    try {
+      const response = await axios.get(user_id ? `http://localhost:3000/products?owner_id=${user_id}` : `http://localhost:3000/products`, {
+        withCredentials: true,
+      });
+      if (response.data.message === "No product found with this filters") {
+        Toast.fire({
+          icon: "warning",
+          title: "No product found",
+        });
+      } else {
+        setProducts(response.data);
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          navigate('/login?unauthorized=true');
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <Box sx={{ height: 'auto', width: '100%', display: 'flex', paddingLeft: '80px', paddingRight: '80px' }}>
       <MuiDataGrid
         sx={{ height: '100%', width: '100%' }}
-        rows={rows}
+        rows={products || []}
         columns={columns}
         initialState={{
           pagination: {

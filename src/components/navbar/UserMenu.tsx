@@ -4,15 +4,37 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import RedButton from '../buttons/button-excluir/RedButton';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import useUserStore from '../../state/userStore';
+import { useState } from 'react';
+import UserModal from '../modals/UserModal';
 
 const options = [
   'Profile',
-  'Logout',
 ];
 
 const ITEM_HEIGHT = 48;
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+
 export default function UserMenu() {
+  const navigate = useNavigate()
+  const { userInfo,clearUserInfo } = useUserStore();
+
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl); 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -21,6 +43,20 @@ export default function UserMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = async () => {
+    await axios.post('http://localhost:3000/auth/logout', null, {
+      withCredentials: true
+    }).then(() => {
+      Toast.fire({
+        icon: "success",
+        title: "Successful signup", 
+      }).then(() => {
+        clearUserInfo()
+        navigate('/login?logout=true')
+      });
+    })
+  }
 
   return (
     <div>
@@ -53,13 +89,20 @@ export default function UserMenu() {
       >
         {options.map((option) => (
           <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-            {option}
+            <div onClick={() => setModalIsOpen(true)}>
+              {option}
+            </div>
           </MenuItem>
         ))}
           <MenuItem onClick={handleClose}>
-            <RedButton content='Logout'/>
+            <RedButton 
+            onClick={() => handleLogout()}
+            content='Logout'/>
           </MenuItem>
       </Menu>
+      {userInfo !== null && (
+        <UserModal open={modalIsOpen} setIsOpen={setModalIsOpen} id={userInfo.id}/>
+      )}
     </div>
   );
 }

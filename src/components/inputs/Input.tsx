@@ -3,13 +3,17 @@ export interface InputProps {
   placeholder?: string;
   label: string;
   id: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string
 }
 
-const Input = ({ type, placeholder, label, id }: InputProps) => {
+const Input = ({ type, placeholder, label, id, onChange, value }: InputProps) => {
   return (  
     <div className="flex flex-col justify-around w-80 h-16">
       <label htmlFor={id} className="text-base text-zinc-800">{label}</label>
-      <input 
+      <input
+      value={value} 
+      onChange={onChange}
       className="outline-none border-[1px] border-gray-300 hover:border-gray-800 ease-in-out duration-500 placeholder:text-base h-3/5 rounded-sm pl-2 placeholder:-translate-y-[1px]"
       id={id} type={type} placeholder={placeholder}/>
     </div>
