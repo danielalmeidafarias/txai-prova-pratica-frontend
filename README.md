@@ -1,5 +1,7 @@
 # Sistema de Gerenciamento de Produtos - Frontend
 - Este projeto é o frontend de um sistema de gerenciamento de produtos, desenvolvido como parte de um desafio técnico para a vaga de desenvolvedor na Txai. Ele foi criado utilizando React e outras bibliotecas modernas para a construção de interfaces dinâmicas e eficientes.
+- Há uma versão demonstrativa disponível em https://txai-prova-pratica-frontend-np54lly91.vercel.app/login
+* Algumas funcionalidades foram desabilitadas a fins de teste
 
 ## Tecnologias Utilizadas
 - React 18: Biblioteca principal para criação da interface de usuário.
