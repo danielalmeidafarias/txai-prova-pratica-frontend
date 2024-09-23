@@ -28,7 +28,7 @@ export default function DeleteUserModal({ open, setIsOpen, id }: DeleteProductMo
   const handleDeleteProduct = async () => {
     console.log(id)
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/users/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}users/${id}`, {
         withCredentials: true
       }).then(() => {
         Toast.fire({

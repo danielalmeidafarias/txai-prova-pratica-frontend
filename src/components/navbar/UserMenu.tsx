@@ -45,7 +45,7 @@ export default function UserMenu() {
   };
 
   const handleLogout = async () => {
-    await axios.post(`${import.meta.env.VITE_API_URL}/auth/logout`, null, {
+    await axios.post(`${import.meta.env.VITE_API_URL}auth/logout`, null, {
       withCredentials: true
     }).then(() => {
       Toast.fire({

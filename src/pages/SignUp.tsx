@@ -70,7 +70,7 @@ const SignUp = () => {
       
         console.log(errorMessages);
       } else {
-        await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
+        await axios.post(`${import.meta.env.VITE_API_URL}users`, {
           email,
           cpf,
           fullname,

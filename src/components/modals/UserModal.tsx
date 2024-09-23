@@ -53,7 +53,7 @@ export default function UserModal({ open, setIsOpen, id }: UserModalProps) {
       });
     } else {
       try {
-        await axios.patch(`${import.meta.env.VITE_API_URL}/users/${id}`, {
+        await axios.patch(`${import.meta.env.VITE_API_URL}users/${id}`, {
           nickname: nickname == '' ? undefined : nickname,
           fullname: nickname == '' ? undefined : fullname,
           cpf: cpf == '' ? undefined : cpf,

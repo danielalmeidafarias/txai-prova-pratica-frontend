@@ -94,7 +94,7 @@ const SignIn = () => {
       
         console.log(errorMessages);
       } else {
-        await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
+        await axios.post(`${import.meta.env.VITE_API_URL}auth/login`, {
           nickname,
           password
         }, {withCredentials: true}).then((response) => {

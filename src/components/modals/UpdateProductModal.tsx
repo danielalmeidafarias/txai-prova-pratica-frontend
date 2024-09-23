@@ -58,7 +58,7 @@ export default function UpdateProductModal({ open, setIsOpen, id, description, n
         console.log(errorMessages);
       } else {
         try {
-          await axios.patch(`${import.meta.env.VITE_API_URL}/products/${id}`, {
+          await axios.patch(`${import.meta.env.VITE_API_URL}products/${id}`, {
             name: newName == name ? undefined : newName,
             price: Number(newPrice) == Number(price) ? undefined : Number(newPrice),
             description: newDescription == description ? undefined : newDescription,  
