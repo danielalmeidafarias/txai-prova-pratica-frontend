@@ -8,10 +8,11 @@ import { useEffect } from 'react';
 const Layout = () => {
   const { userInfo } = useUserStore();
   const navigate = useNavigate()
+  console.log(navigate)
 
   useEffect(() => {
     if(!userInfo) {
-      navigate('/login')
+      // navigate('/login')
     }
   }, [userInfo])
   

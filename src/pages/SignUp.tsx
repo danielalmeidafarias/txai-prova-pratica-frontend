@@ -40,7 +40,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if(userInfo) {
-      navigate('/products')
+      // navigate('/products')
     }
   }, [userInfo])
 
@@ -158,7 +158,7 @@ const SignUp = () => {
           <div className="h-10 flex grid-2 items-center">
             <RiArrowGoBackFill className="text-gray-500" />
             <p 
-            onClick={() => navigate('/signin')}
+            onClick={() => navigate('/login')}
             className="text-gray-500 hover:text-gray-700 duration-100 cursor-pointer">Voltar ao login</p>
           </div>
           <Button 

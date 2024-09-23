@@ -74,7 +74,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if(userInfo) {
-      navigate('/products')
+      // navigate('/products')
     }
   }, [userInfo])
 
@@ -153,6 +153,7 @@ const SignIn = () => {
           </div>
           <Button 
           onClick={async () => {
+            navigate('/home')
             await handleLogin({nickname, password})
           }}  
           content='Entrar'/>

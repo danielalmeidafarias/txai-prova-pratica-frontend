@@ -58,6 +58,8 @@ export default function UserMenu() {
     })
   }
 
+  console.log(handleLogout)
+
   return (
     <div>
       <IconButton
@@ -96,7 +98,7 @@ export default function UserMenu() {
         ))}
           <MenuItem onClick={handleClose}>
             <RedButton 
-            onClick={() => handleLogout()}
+            onClick={() => navigate('/login')}
             content='Logout'/>
           </MenuItem>
       </Menu>
