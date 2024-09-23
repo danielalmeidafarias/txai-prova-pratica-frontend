@@ -50,6 +50,6 @@ npm run dev
 * O projeto será executado no modo de desenvolvimento e estará disponível no endereço http://localhost:5173. Qualquer alteração feita no código será refletida automaticamente no navegador.
 
 ## Scripts Disponíveis
-npm run dev: Inicia o projeto em ambiente de desenvolvimento com o Vite.
-npm run build: Gera a versão otimizada para produção.
-npm run preview: Previsualiza a versão otimizada (build) localmente.
+- npm run dev: Inicia o projeto em ambiente de desenvolvimento com o Vite.
+- npm run build: Gera a versão otimizada para produção.
+- npm run preview: Previsualiza a versão otimizada (build) localmente.
