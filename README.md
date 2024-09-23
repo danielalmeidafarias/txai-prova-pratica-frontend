@@ -1,51 +1,55 @@
-# React + TypeScript + Vite
+# Sistema de Gerenciamento de Produtos - Frontend
+- Este projeto é o frontend de um sistema de gerenciamento de produtos, desenvolvido como parte de um desafio técnico para a vaga de desenvolvedor na Txai. Ele foi criado utilizando React e outras bibliotecas modernas para a construção de interfaces dinâmicas e eficientes.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tecnologias Utilizadas
+- React 18: Biblioteca principal para criação da interface de usuário.
+- TypeScript: Tipagem estática opcional que adiciona mais segurança ao código.
+- Vite: Ferramenta para desenvolvimento rápido e eficiente de aplicações com React.
+- TailwindCSS: Framework de CSS para estilização rápida e eficiente.
+- MUI (Material UI): Componentes prontos e customizáveis para construção de UIs.
+- React Router DOM: Gerenciamento de rotas e navegação entre páginas.
+- Zod: Validação e manipulação de esquemas de dados.
+- Axios: Cliente HTTP para comunicação com APIs.
+- SweetAlert2: Exibição de alertas e modais customizáveis.
 
-Currently, two official plugins are available:
+## Pré-requisitos
+- Antes de começar, você precisará ter o Node.js (>=16.x) e o NPM (>=8.x) instalados na sua máquina. Recomenda-se instalar as seguintes versões:
+- Você pode verificar as versões instaladas rodando:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+node -v
+```
+```bash
+npm -v
+```
+- Caso ainda não tenha, pode baixar e instalar o Node.js a partir do site oficial.
+  - https://nodejs.org/en/download/package-manager
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Instalação
+1. Clone este repositório para sua máquina local:
+```bash
+git clone https://github.com/danielalmeidafarias/txai-prova-pratica-frontend
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Acesse a pasta do projeto:
+```bash
+cd txai-prova-pratica-frontend
 ```
-# txai-prova-pratica-frontend
+
+3. Instale as dependências do projeto:
+```bash
+npm install
+```
+
+## Rodando o Projeto
+- Após instalar as dependências, você pode rodar o projeto localmente em ambiente de desenvolvimento utilizando o comando:
+
+```bash
+npm run dev
+```
+* O projeto será executado no modo de desenvolvimento e estará disponível no endereço http://localhost:5173. Qualquer alteração feita no código será refletida automaticamente no navegador.
+
+## Scripts Disponíveis
+npm run dev: Inicia o projeto em ambiente de desenvolvimento com o Vite.
+npm run build: Gera a versão otimizada para produção.
+npm run preview: Previsualiza a versão otimizada (build) localmente.
