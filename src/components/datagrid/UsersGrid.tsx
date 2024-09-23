@@ -69,7 +69,7 @@ const UserGrid = () => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/users', { withCredentials: true });
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/users`, { withCredentials: true });
       if (response.data.message === "No users found") {
         Toast.fire({
           icon: "warning",

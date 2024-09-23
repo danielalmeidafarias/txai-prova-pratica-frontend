@@ -113,7 +113,7 @@ const DataGrid = ({ user_id }: Props) => {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get(user_id ? `http://localhost:3000/products?owner_id=${user_id}` : `http://localhost:3000/products`, {
+      const response = await axios.get(user_id ? `${import.meta.env.VITE_API_URL}/products?owner_id=${user_id}` : `${import.meta.env.VITE_API_URL}/products`, {
         withCredentials: true,
       });
       if (response.data.message === "No product found with this filters") {

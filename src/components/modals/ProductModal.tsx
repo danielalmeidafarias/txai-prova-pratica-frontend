@@ -53,7 +53,7 @@ export default function CreateProductModal({ open, setIsOpen }: CreateProductMod
         console.log(errorMessages);
       } else {
         try {
-          await axios.post('http://localhost:3000/products', {
+          await axios.post(`${import.meta.env.VITE_API_URL}/products`, {
             name,
             price: Number(price),
             description,
