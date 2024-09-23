@@ -43,6 +43,11 @@ cd txai-prova-pratica-frontend
 npm install
 ```
 
+4. Crie um arquivo .env e configure a url da API:
+```.env
+VITE_API_URL=""
+```
+
 ## Rodando o Projeto
 - Após instalar as dependências, você pode rodar o projeto localmente em ambiente de desenvolvimento utilizando o comando:
 
